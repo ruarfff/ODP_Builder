@@ -4,6 +4,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.io.InputStream;
+import java.net.URL;
+
 /**
  * Unit test for simple App.
  */
@@ -33,6 +36,11 @@ public class AppTest
      */
     public void testApp()
     {
+		InputStream is = getClass().getResourceAsStream( "/init.bat" );
+		assertNotNull(is);
+
+		URL res = getClass().getResource("/app");
+		assertNotNull(res);
         assertTrue( true );
     }
 }

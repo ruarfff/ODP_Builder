@@ -9,7 +9,7 @@ public class Constants {
 	// ===========================================================
 	// Constants
 	// ===========================================================
-	public static final String APP_NAME = "ODP_Builder";
+	public static final String APP_NAME = "ODPBuilder";
 
 	// ===========================================================
 	// Fields

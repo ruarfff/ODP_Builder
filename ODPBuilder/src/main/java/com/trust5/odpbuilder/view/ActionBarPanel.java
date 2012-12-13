@@ -41,7 +41,7 @@ public class ActionBarPanel extends JPanel {
 				try{
 				String result = JOptionPane.showInputDialog(ActionBarPanel.this, "Enter Project Name",
 						JOptionPane.PLAIN_MESSAGE);
-					if(!Workspace.addProjectToWorkspace(new Project(result))){
+					if(!Workspace.addProjectToWorkspace(new Project(result, null))){
 						 JOptionPane.showMessageDialog(ActionBarPanel.this, "A project with that name already " +
 								 "exists", "Error Adding Project", JOptionPane.ERROR_MESSAGE);
 					}

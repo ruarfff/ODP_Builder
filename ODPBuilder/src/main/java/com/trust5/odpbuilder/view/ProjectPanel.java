@@ -26,7 +26,7 @@ public class ProjectPanel extends JPanel {
 		if(Workspace.getProjects() != null){
 			int currentIndex = 0;
 			String currentProjectName = Workspace.getCurrentProjectName();
-			for(Project project : Workspace.getProjects()){
+			for(Project project : Workspace.getProjects().values()){
 				JToggleButton projectButton = new JToggleButton(project.getName(), (currentProjectName != null &&
 						currentProjectName.equals(project.getName())));
 				projectButton.addActionListener(new ActionListener() {
@@ -35,9 +35,9 @@ public class ProjectPanel extends JPanel {
 						AbstractButton abstractButton = (AbstractButton) e.getSource();
 						boolean selected = abstractButton.getModel().isSelected();
 						if(selected){
-							Workspace.setCurrentProject(new Project(abstractButton.getText()));
+							Workspace.setCurrentProjectName(abstractButton.getText());
 						} else{
-							Workspace.setCurrentProject(new Project(""));
+							Workspace.setCurrentProjectName("");
 						}
 					}
 				});

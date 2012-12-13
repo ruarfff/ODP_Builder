@@ -15,6 +15,7 @@ public class Project {
     // Fields
     // ===========================================================
 	private String mName;
+	private String mLocation;
 
     // ===========================================================
     // Constructors
@@ -22,8 +23,9 @@ public class Project {
     public Project() {
     }
 
-	public Project(String pName){
+	public Project(String pName, String pLocation){
 		this.mName = pName;
+		this.mLocation = pLocation;
 	}
     // ===========================================================
     // Getter & Setter
@@ -35,6 +37,14 @@ public class Project {
 
 	public void setName(String pName) {
 		mName = pName;
+	}
+
+	public String getLocation() {
+		return mLocation;
+	}
+
+	public void setLocation(String pLocation) {
+		mLocation = pLocation;
 	}
 
 	// ===========================================================

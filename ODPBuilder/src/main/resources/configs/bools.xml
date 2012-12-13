@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="showTopBar">true</bool>
+    <bool name="showAppInFullScreen">false</bool>
+    <bool name="allowPageScrolling">true</bool>
+    <bool name="showSplashScreen">false</bool>
+    <bool name="allowDownloads">true</bool>
+    <bool name="autoRefresh">false</bool>
+    <bool name="refresh">false</bool>
+    <bool name="checkNonMarketSetting">false</bool>
+    <bool name="useEmbed">false</bool>
+    <bool name="bypassUnwantedLocales">false</bool>
+    <bool name="isMarketPlace">false</bool>
+    <bool name="wifiRequiredForDownloads">false</bool>
+    <bool name="wifiRecommendedForDownloads">false</bool>
+    <bool name="useMd5Check">false</bool>
+    <bool name="useAESEncryption">true</bool>
+    <bool name="useJSBilling">false</bool>
+    <bool name="sendNativeEventsToJS">false</bool>
+    <bool name="useDownloadNotification">false</bool>
+    <bool name="allowDownloadCancel">false</bool>
+    <bool name="appendInfoToAllHttpRequests">true</bool>
+    <bool name="isInstaller">false</bool>
+</resources>
