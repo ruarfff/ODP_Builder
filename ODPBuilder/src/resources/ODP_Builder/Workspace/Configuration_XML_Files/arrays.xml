@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="listOfGames">
+    </array>
+    <array name="gameTypes">
+    </array>
+     <array name="listOfGameDownloadUrls">
+    </array>
+</resources>
