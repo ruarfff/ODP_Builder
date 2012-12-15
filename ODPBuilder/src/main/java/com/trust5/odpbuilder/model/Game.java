@@ -1,16 +1,15 @@
-package com.trust5.odpbuilder;
+package com.trust5.odpbuilder.model;
 
 /**
  * @author Ruairi
  * @version 1.0
- * @since 07/12/12 - 14:41
+ * @since 15/12/12 - 01:11
  */
-public class Constants {
+public class Game {
 	// ===========================================================
 	// Constants
 	// ===========================================================
-	public static final String APP_NAME = "ODPBuilder";
-	public static final String ODP_FILE_NAME = "ODP.apk";
+	private static final String TAG = "Game";
 
 	// ===========================================================
 	// Fields
@@ -19,24 +18,15 @@ public class Constants {
 	// ===========================================================
 	// Constructors
 	// ===========================================================
-	private Constants() {
-
+	public Game() {
 	}
-
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================
-	public static synchronized Constants getInstance() {
-		return SingletonHolder.instance;
-	}
 
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-		throw new CloneNotSupportedException();
-	}
 
 	// ===========================================================
 	// Methods
@@ -45,7 +35,4 @@ public class Constants {
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================
-	private static class SingletonHolder {
-		public static final Constants instance = new Constants();
-	}
 }

@@ -2,31 +2,38 @@ package com.trust5.odpbuilder;
 
 import com.trust5.odpbuilder.model.Workspace;
 import com.trust5.odpbuilder.view.MainFrame;
+import com.trust5.odpbuilder.view.ODPImportFrame;
 import com.trust5.odpbuilder.view.WorkspacePicker;
 
-public class App 
-{
+import java.io.File;
+
+public class App {
 	private static void createAndShowGUI() {
-		try{
-        Workspace.initialize(null);
-        if(Workspace.getLocation() == null){
-            new WorkspacePicker();
-        } else{
-            new MainFrame();
-        }
-		}catch (Exception e){
+		try {
+			Workspace.initialize(null);
+			if (Workspace.getLocation() == null) {
+				new WorkspacePicker();
+			}
+			else {
+				if (new File(Workspace.getWorkspaceConfigDirLocation() + File.separator +
+						Constants.ODP_FILE_NAME).exists()) {
+					new MainFrame();
+				}
+				else {
+					new ODPImportFrame();
+				}
+			}
+		} catch (Exception e) {
 			new WorkspacePicker();
 		}
 
+	}
 
-    }
-	
-    public static void main( String[] args )
-    {
-         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-    }
+	public static void main(String[] args) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
+	}
 }

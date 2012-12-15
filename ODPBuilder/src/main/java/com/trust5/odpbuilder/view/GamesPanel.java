@@ -1,23 +1,18 @@
 package com.trust5.odpbuilder.view;
 
-import com.trust5.odpbuilder.model.Project;
-import com.trust5.odpbuilder.model.Workspace;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Ruairi
  * @version 1.0
- * @since 12/12/12 - 17:53
+ * @since 15/12/12 - 00:06
  */
-public class ActionBarPanel extends JPanel {
+public class GamesPanel extends JPanel {
 	// ===========================================================
 	// Constants
 	// ===========================================================
-	private static final String TAG = "ActionBarPanel";
+	private static final String TAG = "GamesPanel";
 
 	// ===========================================================
 	// Fields
@@ -26,31 +21,8 @@ public class ActionBarPanel extends JPanel {
 	// ===========================================================
 	// Constructors
 	// ===========================================================
-	public ActionBarPanel() {
-		super(new GridLayout(1, 8, 20, 10));
-
-		Dimension size = getPreferredSize();
-		size.height = 50;
-		setPreferredSize(size);
-		setBorder(BorderFactory.createEtchedBorder());
-
-		JButton newProjectButton = new JButton("New Project");
-		newProjectButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try{
-				String result = JOptionPane.showInputDialog(ActionBarPanel.this, "Enter Project Name",
-						JOptionPane.PLAIN_MESSAGE);
-					if(!Workspace.addProjectToWorkspace(new Project(result, null))){
-						 JOptionPane.showMessageDialog(ActionBarPanel.this, "A project with that name already " +
-								 "exists", "Error Adding Project", JOptionPane.ERROR_MESSAGE);
-					}
-				}catch (Exception ex){
-					 ex.printStackTrace();
-				}
-			}
-		});
-		add(newProjectButton);
+	public GamesPanel() {
+		super(new GridBagLayout());
 	}
 	// ===========================================================
 	// Getter & Setter

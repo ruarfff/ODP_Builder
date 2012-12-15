@@ -11,12 +11,14 @@ SET heapSize=512
 :: Define working folders
 
 :: Folders where specific content gets added
-SET Configs=Workspace\Configuration_XML_Files
-SET Images=Workspace\Images
-SET Games=Workspace\Place_Games_Here
+SET Workspace=workspace
+SET Configs=%Workspace%\configs
+SET Images=%Workspace%\images
+SET Games=Workspace\place_games_here
 
 :: Define tools
-SET Tools=App\tools
+SET App=app
+SET Tools=%App%\tools
 SET ApkTool=%Tools%\apktool.jar
 SET BatchSubstitute=%Tools%\BatchSubstitute.bat
 SET SevenZip=%Tools%\7z
@@ -24,19 +26,19 @@ SET Jarsigner=%Tools%\jarsigner
 SET Zipalign=%Tools%\zipalign
 
 :: Where all the good stuff happens
-SET WorkingDir=App\WORKING
-SET Decompiled=%WorkingDir%\DECOMPILED
-SET Signed=%WorkingDir%\SIGNED
-SET Temp=%WorkingDir%\TEMP
-SET Unsigned=%WorkingDir%\UNSIGNED
+SET WorkingDir=%App%\working
+SET Decompiled=%WorkingDir%\decompiled
+SET Signed=%WorkingDir%\signed
+SET Temp=%WorkingDir%\temp
+SET Unsigned=%WorkingDir%\unsigned
 
 :: ODP In and Out
-SET ODP_APK=App\ODP_APK\ODP.apk
+SET ODP_APK=%App%\odp_apk\ODP.apk
 SET ODP_APK_Decompiled=%Decompiled%\ODP.apk
 SET OutFolder=APK_OUT
 
 :: The key for signing APKs
-SET key=App\key\trust5Wrapper.keystore
+SET key=%App%\key\trust5Wrapper.keystore
 
 
 :Initialize
@@ -56,7 +58,7 @@ IF Not EXIST "%Signed%" (mkdir "%Signed%")
 IF NOT EXIST "%Temp%" (mkdir "%Temp%")
 IF NOT EXIST "%Unsigned%" (mkdir "%Unsigned%")
 
-REM :: Always decompile the ODP at start so the decomiled code doesn't have to be remove manualy when updating.
+REM :: Always decompile the ODP at start so the decompiled code doesn't have to be removed manually when updating.
 IF EXIST "%ODP_APK_Decompiled%" (rmdir /q /s "%ODP_APK_Decompiled%" 2>nul)
 java -Xmx%heapSize%m -jar %ApkTool% d "%ODP_APK%" "%ODP_APK_Decompiled%"
 
@@ -81,7 +83,7 @@ If Not EXIST "%AssetsFolder%" (mkdir "%AssetsFolder%")
 xcopy %Games% %AssetsFolder% /s/y/e/i
 
 
-REM :: Create Images fodler for embeded HTML
+REM :: Create Images folder for embedded HTML
 IF Not EXIST "%EmbedImageFolder%" (mkdir "%EmbedImageFolder%")
 
 REM :: Copy Background Image

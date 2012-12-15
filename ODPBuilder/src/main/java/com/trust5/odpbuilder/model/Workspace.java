@@ -54,15 +54,20 @@ public class Workspace {
 	// ===========================================================
 
 	public static String getLocation() {
-		if(sPreferences != null){
-		return sPreferences.get(PREF_KEY_LOCATION, null);
+		if (sPreferences != null) {
+			return sPreferences.get(PREF_KEY_LOCATION, null);
 		}
 		return null;
 	}
 
 	public static void setLocation(String location) {
-		if(sPreferences != null)
-		sPreferences.put(PREF_KEY_LOCATION, location);
+		if (sPreferences != null) {
+			sPreferences.put(PREF_KEY_LOCATION, location);
+		}
+	}
+
+	public static String getWorkspaceConfigDirLocation() {
+		return (getLocation() != null) ? getLocation() + File.separator + WORKSPACE_CONFIG_DIR : null;
 	}
 
 	public static Map<String, Project> getProjects() {
@@ -83,24 +88,25 @@ public class Workspace {
 			createWorkspaceConfigurationDir(pLocation);
 			WorkspaceXMLHandler.initializeWorkspaceXML();
 		}
-		if(getLocation() != null){
-		if (new File(getLocation() + File.separator +
-				WORKSPACE_CONFIG_DIR + File.separator + WORKSPACE_XML_FILE).exists()) {
-			sProjects = WorkspaceXMLHandler.getAllProjects();
-		}
-		if (!new File(getLocation()).exists()) {
-			sPreferences.remove(PREF_KEY_LOCATION);
-		}
+		if (getLocation() != null) {
+			if (new File(getLocation() + File.separator +
+					WORKSPACE_CONFIG_DIR + File.separator + WORKSPACE_XML_FILE).exists()) {
+				sProjects = WorkspaceXMLHandler.getAllProjects();
+			}
+			if (!new File(getLocation()).exists()) {
+				sPreferences.remove(PREF_KEY_LOCATION);
+			}
 		}
 	}
 
-	public static void setCurrentProjectName(String pCurrentProjectName){
-		if(sPreferences != null)
-		sPreferences.put(PREF_KEY_CURRENT_PROJECT, pCurrentProjectName);
+	public static void setCurrentProjectName(String pCurrentProjectName) {
+		if (sPreferences != null) {
+			sPreferences.put(PREF_KEY_CURRENT_PROJECT, pCurrentProjectName);
+		}
 	}
 
-	public static String getCurrentProjectName(){
-		if(sPreferences != null){
+	public static String getCurrentProjectName() {
+		if (sPreferences != null) {
 			return sPreferences.get(PREF_KEY_CURRENT_PROJECT, null);
 		}
 		return null;
@@ -111,7 +117,7 @@ public class Workspace {
 			if (sProjects == null) {
 				sProjects = new HashMap<String, Project>();
 			}
-			if(sProjects.containsKey(pProject.getName())){
+			if (sProjects.containsKey(pProject.getName())) {
 				return false;
 			}
 
