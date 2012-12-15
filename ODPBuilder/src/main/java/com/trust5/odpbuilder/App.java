@@ -1,8 +1,8 @@
 package com.trust5.odpbuilder;
 
 import com.trust5.odpbuilder.model.Workspace;
-import com.trust5.odpbuilder.view.MainFrame;
 import com.trust5.odpbuilder.view.ODPImportFrame;
+import com.trust5.odpbuilder.view.WorkspaceFrame;
 import com.trust5.odpbuilder.view.WorkspacePicker;
 
 import java.io.File;
@@ -17,7 +17,7 @@ public class App {
 			else {
 				if (new File(Workspace.getWorkspaceConfigDirLocation() + File.separator +
 						Constants.ODP_FILE_NAME).exists()) {
-					new MainFrame();
+					new WorkspaceFrame();
 				}
 				else {
 					new ODPImportFrame();

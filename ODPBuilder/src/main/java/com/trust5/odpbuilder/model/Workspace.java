@@ -99,6 +99,17 @@ public class Workspace {
 		}
 	}
 
+	public static Project getCurrentProject() {
+		try {
+			if (sProjects != null) {
+				return sProjects.get(getCurrentProjectName());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static void setCurrentProjectName(String pCurrentProjectName) {
 		if (sPreferences != null) {
 			sPreferences.put(PREF_KEY_CURRENT_PROJECT, pCurrentProjectName);
@@ -264,9 +275,7 @@ public class Workspace {
 							Element element = (Element) node;
 							String projectName = element.getAttribute("name");
 							String projectLocation = element.getAttribute("location");
-							Project project = new Project();
-							project.setName(projectName);
-							project.setLocation(projectLocation);
+							Project project = new Project(projectName, projectLocation);
 							projects.put(project.getName(), project);
 						}
 					}

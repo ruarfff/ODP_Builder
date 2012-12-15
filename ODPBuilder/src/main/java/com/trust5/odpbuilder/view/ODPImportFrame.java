@@ -116,7 +116,7 @@ public class ODPImportFrame extends JFrame {
 						FileUtils.copy(ODP, destination);
 
 						dispose();
-						new MainFrame();
+						new WorkspaceFrame();
 					}
 					else {
 						Toolkit.getDefaultToolkit().beep();

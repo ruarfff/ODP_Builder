@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">EA Games</string>
-    <string name="onlineURL"></string>
+    <string name="onlineURL" />
     <string name="refreshAPIURL">http://mg.eamobileclub.com/mgmlrefresh.ashx</string>
-    <string name="campaign"></string>
-    <string name="uaName">t5odp</string>
+    <string name="campaign">installerApp</string>
+    <string name="userAgentModifiedValue">t5odp</string>
     <string name="defaultEmbedFileName">index</string>
     <string name="embedURL">site/index.html</string>
-    <string name="moreGamesUrl"></string>
+    <string name="moreGamesUrl" />
     <string name="jsOnResume">
         javascript:try{activityInterface.onResume();}catch(error){console.log(error.toString());}
     </string>
@@ -27,6 +26,7 @@
         {requestCode});}catch(error){console.log(error.toString());}
     </string>
     <string name="jsRequestCodePlaceHolder">{requestCode}</string>
+    <string name="app_name">EA Games</string>
     <string name="exitText">Exit</string>
     <string name="retryText">Retry</string>
     <string name="offlineAlertTitle">No Network</string>
@@ -53,5 +53,11 @@
     </string>
     <string name="sdCardNotAvailableMessage">Error. Device SD card not available.</string>
     <string name="downloadFailedMessage">The download has failed due to a network error. Please try again.</string>
+    <string name="downloadedItemsMenuText">Downloaded Items</string>
+    <string name="actionDialogueTitle">Select Action</string>
+    <string name="launchGameButtonText">Launch</string>
+    <string name="uninstallGameButtonText">Uninstall</string>
+    <string name="deleteAPKButtonText">Delete</string>
+    <string name="installGameButtonText">Install</string>
     <string name="splashDescription">Splash image shown while application is loading</string>
 </resources>

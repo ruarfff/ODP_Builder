@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="listOfGames">
-    </array>
-    <array name="gameTypes">
-    </array>
-    <array name="listOfGameDownloadUrls">
-    </array>
+    <string-array name="listOfGames">
+        <item>Dead Space</item>
+        <item>Game Of Life</item>
+        <item>Tiger Wood 12</item>
+        <item>Fifa 12</item>
+        <item>Need for Speed Hot Pursuit</item>
+    </string-array>
+    <string-array name="bannerNames">
+        <item>DeadSpace</item>
+        <item>GOL</item>
+        <item>Tiger</item>
+        <item>FIFA12</item>
+        <item>NFSHP</item>
+    </string-array>
+    <string-array name="gameTypes">
+        <item>playfree</item>
+        <item>tryfree</item>
+        <item>tryfree</item>
+        <item>tryfree</item>
+        <item>tryfree</item>
+    </string-array>
+    <string-array name="listOfGameDownloadUrls">
+        <item>http://cpoz.t5mgn.com/c/rd/rd.aspx?r=1112&amp;amp;gc=282</item>
+        <item>http://cpoz.t5mgn.com/c/rd/rd.aspx?r=1112&amp;amp;gc=59</item>
+        <item>http://cpoz.t5mgn.com/c/rd/rd.aspx?r=1112&amp;amp;gc=329</item>
+        <item>http://cpoz.t5mgn.com/c/rd/rd.aspx?r=1112&amp;amp;gc=303</item>
+        <item>http://cpoz.t5mgn.com/c/rd/rd.aspx?r=1112&amp;amp;gc=209</item>
+    </string-array>
 </resources>

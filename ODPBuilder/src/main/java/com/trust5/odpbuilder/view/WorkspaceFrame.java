@@ -5,6 +5,8 @@ import com.trust5.odpbuilder.model.Project;
 import com.trust5.odpbuilder.model.Workspace;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +18,7 @@ import java.awt.event.KeyEvent;
  * @version 1.0
  * @since 07/12/12 - 15:45
  */
-public class MainFrame extends JFrame {
+public class WorkspaceFrame extends JFrame {
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -29,40 +31,18 @@ public class MainFrame extends JFrame {
 	// ===========================================================
 	// Constructors
 	// ===========================================================
-	public MainFrame() {
+	public WorkspaceFrame() {
 		super("ODP Builder");
 		addMenu();
+		addToolBar();
+		addProjectPanel();
+		addConfigurationPanel();
 
 
-		JPanel panel = new JPanel(new GridBagLayout());
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		mProjectpanel = new ProjectPanel();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 1;
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 0.5;
-		gridBagConstraints.weighty = 0.5;
-		panel.add(mProjectpanel, gridBagConstraints);
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 1.0;
-		gridBagConstraints.weighty = 1.0;
-		panel.add(createTabbedInterface(), gridBagConstraints);
-
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int height = screenSize.height;
-		int width = screenSize.width;
-
-		this.add(panel);
 		this.pack();
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		// this.setSize(width/2, height/2);
-		// center the jframe on screen
 		this.setLocationRelativeTo(null);
-		setExtendedState(Frame.MAXIMIZED_BOTH);
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setVisible(true);
 	}
 
@@ -88,6 +68,43 @@ public class MainFrame extends JFrame {
 	// ===========================================================
 	// Methods
 	// ===========================================================
+	private void addToolBar() {
+		JToolBar toolbar = new JToolBar();
+		toolbar.setFloatable(false);
+		toolbar.setBorder(BorderFactory.createBevelBorder(EtchedBorder.RAISED));
+
+		Dimension dimension = new Dimension(50, 75);
+
+		ImageIcon plusIcon = new ImageIcon(getClass().getResource("/images/plus.png"));//{
+			/*@Override
+			public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+				g.drawImage(getImage(), x, y, c.getWidth(), c.getHeight(), c);
+			}
+		};*/
+		JButton newProjectButton = new JButton("New", plusIcon);
+		newProjectButton.setBorder(new EmptyBorder(0, 0, 0, 0));
+		newProjectButton.setMaximumSize(dimension);
+		newProjectButton.setToolTipText("Add a new project to workspace");
+		newProjectButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showNewProjectDialogue();
+			}
+		});
+		toolbar.add(newProjectButton);
+
+		add(toolbar, BorderLayout.NORTH);
+	}
+
+	private void addProjectPanel() {
+		mProjectpanel = new ProjectPanel();
+		add(mProjectpanel, BorderLayout.WEST);
+	}
+
+	private void addConfigurationPanel() {
+		add(createConfigurationTabbedPane(), BorderLayout.CENTER);
+	}
+
 	private void addMenu() {
 		JMenuBar menuBar;
 		JMenu menu;
@@ -109,20 +126,7 @@ public class MainFrame extends JFrame {
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					String result = JOptionPane.showInputDialog(MainFrame.this, "Enter Project Name",
-							JOptionPane.PLAIN_MESSAGE);
-					if (!Workspace.addProjectToWorkspace(new Project(result, null))) {
-						JOptionPane.showMessageDialog(MainFrame.this, "A project with that name already " +
-								"exists", "Error Adding Project", JOptionPane.ERROR_MESSAGE);
-					}
-					else if (result != null && Workspace.getProjects().containsKey(result)) {
-						updateComponent(ProjectPanel.ID, result);
-					}
-
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+				showNewProjectDialogue();
 			}
 		});
 		menu.add(menuItem);
@@ -136,11 +140,11 @@ public class MainFrame extends JFrame {
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				// TODO: Delete project
 			}
 		});
 		menu.add(menuItem);
-
+		menu.addSeparator();
 		menuItem = new JMenuItem("Exit",
 				KeyEvent.VK_X);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -197,7 +201,7 @@ public class MainFrame extends JFrame {
 		setJMenuBar(menuBar);
 	}
 
-	private JTabbedPane createTabbedInterface() {
+	private JTabbedPane createConfigurationTabbedPane() {
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Deployment", new DeploymentPanel());
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -206,6 +210,23 @@ public class MainFrame extends JFrame {
 		tabbedPane.addTab("UI Config", new UIConfigPanel());
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_2);
 		return tabbedPane;
+	}
+
+	private void showNewProjectDialogue() {
+		try {
+			String result = JOptionPane.showInputDialog(WorkspaceFrame.this, "Enter Project Name",
+					JOptionPane.PLAIN_MESSAGE);
+			if (!Workspace.addProjectToWorkspace(new Project(result, null))) {
+				JOptionPane.showMessageDialog(WorkspaceFrame.this, "A project with that name already " +
+						"exists", "Error Adding Project", JOptionPane.ERROR_MESSAGE);
+			}
+			else if (result != null && Workspace.getProjects().containsKey(result)) {
+				updateComponent(ProjectPanel.ID, result);
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	// ===========================================================
