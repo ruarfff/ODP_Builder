@@ -1,5 +1,6 @@
 package com.trust5.odpbuilder.view;
 
+import com.trust5.odpbuilder.control.ProjectManager;
 import com.trust5.odpbuilder.model.Project;
 import com.trust5.odpbuilder.model.Workspace;
 
@@ -52,6 +53,7 @@ public class ProjectPanel extends JPanel {
 				boolean selected = abstractButton.getModel().isSelected();
 				if (selected) {
 					Workspace.setCurrentProjectName(abstractButton.getText());
+					ProjectManager.loadProject(Workspace.getCurrentProject());
 				}
 				else {
 					Workspace.setCurrentProjectName("");

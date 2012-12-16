@@ -1,6 +1,7 @@
 package com.trust5.odpbuilder.view;
 
 import com.trust5.odpbuilder.control.ODPBuilder;
+import com.trust5.odpbuilder.control.ProjectManager;
 import com.trust5.odpbuilder.model.Project;
 import com.trust5.odpbuilder.model.Workspace;
 
@@ -33,6 +34,11 @@ public class WorkspaceFrame extends JFrame {
 	// ===========================================================
 	public WorkspaceFrame() {
 		super("ODP Builder");
+
+		if (Workspace.getCurrentProject() != null) {
+			ProjectManager.loadProject(Workspace.getCurrentProject());
+		}
+
 		addMenu();
 		addToolBar();
 		addProjectPanel();
@@ -203,11 +209,11 @@ public class WorkspaceFrame extends JFrame {
 
 	private JTabbedPane createConfigurationTabbedPane() {
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("Deployment", new DeploymentPanel());
+		tabbedPane.addTab("Deployment", new DeploymentPanel(Workspace.getCurrentProject().getDeployment()));
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		tabbedPane.addTab("Games", new GamesPanel());
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_1);
-		tabbedPane.addTab("UI Config", new UIConfigPanel());
+		tabbedPane.addTab("UI Config", new UIConfigPanel(Workspace.getCurrentProject().getUIConfiguration()));
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_2);
 		return tabbedPane;
 	}

@@ -1,6 +1,7 @@
 package com.trust5.odpbuilder.model;
 
 import com.trust5.odpbuilder.control.ProjectBuilder;
+import com.trust5.odpbuilder.control.ProjectManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -136,6 +137,7 @@ public class Workspace {
 			sProjects.put(pProject.getName(), pProject);
 			WorkspaceXMLHandler.addProject(pProject);
 			new ProjectBuilder(pProject).buildProjectStructure();
+			ProjectManager.loadProject(pProject);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
