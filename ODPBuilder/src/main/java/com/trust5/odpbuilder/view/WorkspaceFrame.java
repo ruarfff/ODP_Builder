@@ -6,7 +6,6 @@ import com.trust5.odpbuilder.model.Project;
 import com.trust5.odpbuilder.model.Workspace;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +26,9 @@ public class WorkspaceFrame extends JFrame {
 	// ===========================================================
 	// Fields
 	// ===========================================================
-	private ProjectPanel mProjectpanel;
+	private ProjectPanel mProjectPanel;
+	private ConfigurationPanel mDeploymentPanel;
+	private ConfigurationPanel mUIConfigurationPanel;
 
 	// ===========================================================
 	// Constructors
@@ -63,8 +64,8 @@ public class WorkspaceFrame extends JFrame {
 
 	public void updateComponent(int pComponentId, String data) {
 		if (pComponentId == ProjectPanel.ID) {
-			if (mProjectpanel != null) {
-				mProjectpanel.addNewProject(data);
+			if (mProjectPanel != null) {
+				mProjectPanel.addNewProject(data);
 			}
 		}
 
@@ -79,17 +80,9 @@ public class WorkspaceFrame extends JFrame {
 		toolbar.setFloatable(false);
 		toolbar.setBorder(BorderFactory.createBevelBorder(EtchedBorder.RAISED));
 
-		Dimension dimension = new Dimension(50, 75);
-
-		ImageIcon plusIcon = new ImageIcon(getClass().getResource("/images/plus.png"));//{
-			/*@Override
-			public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
-				g.drawImage(getImage(), x, y, c.getWidth(), c.getHeight(), c);
-			}
-		};*/
+		ImageIcon plusIcon = new ImageIcon(getClass().getResource("/images/plus.png"));
+		ImageIcon saveIcon = new ImageIcon(getClass().getResource("/images/save.png"));
 		JButton newProjectButton = new JButton("New", plusIcon);
-		newProjectButton.setBorder(new EmptyBorder(0, 0, 0, 0));
-		newProjectButton.setMaximumSize(dimension);
 		newProjectButton.setToolTipText("Add a new project to workspace");
 		newProjectButton.addActionListener(new ActionListener() {
 			@Override
@@ -98,13 +91,22 @@ public class WorkspaceFrame extends JFrame {
 			}
 		});
 		toolbar.add(newProjectButton);
+		JButton saveProjectButton = new JButton("Save", saveIcon);
+		saveProjectButton.setToolTipText("Save the project configuration");
+		saveProjectButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				saveProject();
+			}
+		});
+		toolbar.add(saveProjectButton);
 
 		add(toolbar, BorderLayout.NORTH);
 	}
 
 	private void addProjectPanel() {
-		mProjectpanel = new ProjectPanel();
-		add(mProjectpanel, BorderLayout.WEST);
+		mProjectPanel = new ProjectPanel();
+		add(mProjectPanel, BorderLayout.WEST);
 	}
 
 	private void addConfigurationPanel() {
@@ -209,11 +211,14 @@ public class WorkspaceFrame extends JFrame {
 
 	private JTabbedPane createConfigurationTabbedPane() {
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("Deployment", new DeploymentPanel(Workspace.getCurrentProject().getDeployment()));
+		mDeploymentPanel = new DeploymentPanel(Workspace.getCurrentProject()
+				.getDeployment());
+		mUIConfigurationPanel = new UIConfigPanel(Workspace.getCurrentProject().getUIConfiguration());
+		tabbedPane.addTab("Deployment", new JScrollPane(mDeploymentPanel));
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		tabbedPane.addTab("Games", new GamesPanel());
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_1);
-		tabbedPane.addTab("UI Config", new UIConfigPanel(Workspace.getCurrentProject().getUIConfiguration()));
+		tabbedPane.addTab("UI Config", new JScrollPane(mUIConfigurationPanel));
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_2);
 		return tabbedPane;
 	}
@@ -232,6 +237,16 @@ public class WorkspaceFrame extends JFrame {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		}
+	}
+
+	private void saveProject() {
+		try {
+			mUIConfigurationPanel.loadInputs();
+			mDeploymentPanel.loadInputs();
+			ProjectManager.saveProject(Workspace.getCurrentProject());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

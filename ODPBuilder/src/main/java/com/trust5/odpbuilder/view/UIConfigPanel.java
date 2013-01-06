@@ -18,15 +18,15 @@ public class UIConfigPanel extends ConfigurationPanel {
 	// ===========================================================
 	// Fields
 	// ===========================================================
-	private static int currentYIndex;
 
 	private static UIConfiguration sUIConfiguration;
 
-	private static JCheckBox mShowTopBarCheckBox;
-	private static JCheckBox mShowAppInFullScreenCheckBox;
-	private static JCheckBox mShowSplashScreenCheckBox;
-	private static JTextField mSplashScreenDisplayTimeTextField;
-	private static JCheckBox mShowDownloadedItemsMenuCheckBox;
+	JCheckBox mShowTopBarCheckBox;
+	JCheckBox mShowAppInFullScreenCheckBox;
+	JCheckBox mAllowPageScrollingCheckBox;
+	JCheckBox mShowSplashScreenCheckBox;
+	JTextField mSplashScreenDisplayTimeTextField;
+	JCheckBox mShowDownloadedItemsMenuCheckBox;
 
 	// ===========================================================
 	// Constructors
@@ -45,42 +45,54 @@ public class UIConfigPanel extends ConfigurationPanel {
 	// ===========================================================
 	@Override
 	protected void setupWidgets(JPanel panel) {
-		/*addShowTopBarCheckBox(panel);
-		addShowAppInFullScreenCheckBox(panel);
-		addShowSplashScreenCheckBox(panel);
-		addSplashScreenDisplayTimeTextField(panel);
-		addShowDownloadedItemsMenuCheckBox(panel);*/
+		mShowTopBarCheckBox = new JCheckBox("",
+				sUIConfiguration.isShowTopBar());
+		mShowAppInFullScreenCheckBox = new JCheckBox("",
+				sUIConfiguration.isShowAppInFullScreen());
+		mAllowPageScrollingCheckBox = new JCheckBox("",
+				sUIConfiguration.isAllowPageScrolling());
+		mShowSplashScreenCheckBox = new JCheckBox("",
+				sUIConfiguration.isShowSplashScreen());
+		mSplashScreenDisplayTimeTextField = new JTextField(String.valueOf(sUIConfiguration.getSplashScreenDisplayTime()));
+		mShowDownloadedItemsMenuCheckBox = new JCheckBox("", sUIConfiguration.isShowDownloadedItemsMenu());
+
+		JPanel showTopBarPanel = createLabelAndComponentPanel("Show top bar", mShowTopBarCheckBox);
+		JPanel showAppInFullScreenPanel = createLabelAndComponentPanel("Show App in Full Screen", mShowAppInFullScreenCheckBox);
+		JPanel allowPageScrollingPanel = createLabelAndComponentPanel("Allow Page Scrolling",
+				mAllowPageScrollingCheckBox);
+		JPanel showSplashScreenPanel = createLabelAndComponentPanel("Show Splash Screen", mShowSplashScreenCheckBox);
+		JPanel splashScreenDisplayTimePanel = createLabelAndComponentPanel("Splash Screen Display Time",
+				mSplashScreenDisplayTimeTextField);
+		JPanel showDownloadedItemsMenuPanel = createLabelAndComponentPanel("Show Downloaded Items Menu",
+				mShowDownloadedItemsMenuCheckBox);
+
+		add(showTopBarPanel);
+		add(showAppInFullScreenPanel);
+		add(allowPageScrollingPanel);
+		add(showSplashScreenPanel);
+		add(splashScreenDisplayTimePanel);
+		add(showDownloadedItemsMenuPanel);
+	}
+
+	@Override
+	public void loadInputs() {
+		try {
+			sUIConfiguration.setShowTopBar(mShowTopBarCheckBox.isSelected());
+			sUIConfiguration.setAllowPageScrolling(mAllowPageScrollingCheckBox.isSelected());
+			sUIConfiguration.setShowAppInFullScreen(mShowAppInFullScreenCheckBox.isSelected());
+			sUIConfiguration.setShowSplashScreen(mShowSplashScreenCheckBox.isSelected());
+			sUIConfiguration.setShowDownloadedItemsMenu(mShowDownloadedItemsMenuCheckBox.isSelected());
+			sUIConfiguration.setSplashScreenDisplayTime(mSplashScreenDisplayTimeTextField.getText() == null ? 0 : Integer
+					.decode(mSplashScreenDisplayTimeTextField.getText()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// ===========================================================
 	// Methods
 	// ===========================================================
-	private void addShowTopBarCheckBox(JPanel panel) {
-		mShowTopBarCheckBox = new JCheckBox("", false);
-		mShowTopBarCheckBox.setEnabled(sUIConfiguration.isShowTopBar());
-		addLabelAndCheckBox(currentYIndex++, panel, mShowTopBarCheckBox, "Show Top Bar");
-	}
 
-	private void addShowAppInFullScreenCheckBox(JPanel panel) {
-		mShowAppInFullScreenCheckBox = new JCheckBox("", sUIConfiguration.isShowAppInFullScreen());
-		addLabelAndCheckBox(currentYIndex++, panel, mShowAppInFullScreenCheckBox, "Full Screen");
-	}
-
-	private void addShowSplashScreenCheckBox(JPanel panel) {
-		mShowSplashScreenCheckBox = new JCheckBox("", sUIConfiguration.isShowSplashScreen());
-		addLabelAndCheckBox(currentYIndex++, panel, mShowSplashScreenCheckBox, "Show Splash");
-	}
-
-	private void addSplashScreenDisplayTimeTextField(JPanel panel) {
-		mSplashScreenDisplayTimeTextField = new JTextField();
-		mSplashScreenDisplayTimeTextField.setText(String.valueOf(sUIConfiguration.getSplashScreenDisplayTime()));
-		addLabelAndTextField(currentYIndex++, panel, mSplashScreenDisplayTimeTextField, "Splash Screen Display Time", false);
-	}
-
-	private void addShowDownloadedItemsMenuCheckBox(JPanel panel) {
-		mShowDownloadedItemsMenuCheckBox = new JCheckBox("", sUIConfiguration.isShowDownloadedItemsMenu());
-		addLabelAndCheckBox(currentYIndex++, panel, mShowDownloadedItemsMenuCheckBox, "Show Downloads Menu");
-	}
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================
